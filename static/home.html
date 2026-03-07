@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jaswanth Reddy | DevOps Engineer</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+}
+
+/* Header */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 80px;
+background:#020617;
+position:sticky;
+top:0;
+}
+
+.logo{
+color:#38bdf8;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:30px;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:bold;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#38bdf8;
+}
+
+/* Hero Section */
+
+.hero{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(135deg,#020617,#0f172a);
+}
+
+.hero-text h1{
+font-size:55px;
+margin:10px 0;
+}
+
+.hero-text span{
+color:#38bdf8;
+}
+
+.hero-text p{
+margin-bottom:20px;
+font-size:18px;
+}
+
+.hero button{
+padding:12px 30px;
+border:none;
+background:#38bdf8;
+color:black;
+font-size:16px;
+cursor:pointer;
+border-radius:6px;
+transition:0.3s;
+}
+
+.hero button:hover{
+transform:scale(1.1);
+}
+
+/* About */
+
+.about{
+padding:80px 10%;
+text-align:center;
+}
+
+.skills{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+}
+
+.skill{
+padding:10px 25px;
+background:#1e293b;
+border-radius:20px;
+transition:0.3s;
+}
+
+.skill:hover{
+background:#38bdf8;
+color:black;
+transform:translateY(-5px);
+}
+
+/* Projects */
+
+.projects{
+padding:80px 10%;
+text-align:center;
+}
+
+.project-container{
+display:flex;
+gap:30px;
+margin-top:40px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.project-card{
+background:#1e293b;
+padding:30px;
+width:250px;
+border-radius:10px;
+transition:0.4s;
+}
+
+.project-card:hover{
+transform:translateY(-10px);
+background:#38bdf8;
+color:black;
+}
+
+/* Contact */
+
+.contact{
+padding:80px 10%;
+text-align:center;
+}
+
+.contact-info{
+margin-bottom:30px;
+line-height:2;
+}
+
+.contact-info a{
+color:#38bdf8;
+text-decoration:none;
+}
+
+form{
+display:flex;
+flex-direction:column;
+gap:15px;
+max-width:400px;
+margin:auto;
+}
+
+input,textarea{
+padding:10px;
+border:none;
+border-radius:5px;
+}
+
+textarea{
+height:120px;
+}
+
+form button{
+padding:12px;
+background:#38bdf8;
+border:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* Footer */
+
+footer{
+text-align:center;
+padding:20px;
+background:#020617;
+margin-top:40px;
+}
+
+/* Animations */
+
+.hero-text{
+animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<header>
+
+<h1 class="logo">Jaswanth Reddy</h1>
+
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+</header>
+
+
+<section id="home" class="hero">
+
+<div class="hero-text">
+
+<h2>Hello 👋</h2>
+
+<h1>I am <span>Jaswanth Reddy</span></h1>
+
+<p>DevOps Engineer | Kubernetes | AWS | Docker | CI/CD</p>
+
+<button>View My Work</button>
+
+</div>
+
+</section>
+
+
+<section id="about" class="about">
+
+<h2>About Me</h2>
+
+<p>
+I am a passionate DevOps Engineer with a strong interest in building scalable, reliable, and automated infrastructure. I specialize in containerization, CI/CD pipelines, and cloud technologies, using tools like Docker, Kubernetes, Jenkins, and AWS to streamline development and deployment processes. I enjoy solving complex problems, improving system performance, and implementing DevOps best practices that enable faster and more reliable software delivery.
+</p>
+
+<div class="skills">
+
+<div class="skill">Docker</div>
+<div class="skill">Kubernetes</div>
+<div class="skill">AWS</div>
+<div class="skill">Terraform</div>
+<div class="skill">Jenkins</div>
+<div class="skill">GitHub Actions</div>
+<div class="skill">Bash</div>
+
+</div>
+
+</section>
+
+
+<section id="projects" class="projects">
+
+<h2>Projects</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Kubernetes Microservices Deployment</h3>
+<p>Deploy multiple microservices using Kubernetes.</p>
+<p>Kubernetes |
+Docker |
+Helm |
+Nginx Ingress |
+AWS EKS
+</p>
+</div>
+
+<div class="project-card">
+<h3>Go Web App Deployment</h3>
+<p>Deployed Go app using Docker, Kubernetes, Helm and AWS EKS.</p>
+</div>
+
+<div class="project-card">
+<h3>CI/CD Pipeline</h3>
+<p>Automated build and deployment using Jenkins and GitHub.</p>
+</div>
+
+<div class="project-card">
+<h3>Terraform Infrastructure</h3>
+<p>Provisioned AWS infrastructure using Terraform modules.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="contact" class="contact">
+
+<h2>Contact Me</h2>
+
+<div class="contact-info">
+
+<p>📞 Phone: +91 XXXXX XXXXX</p>
+
+<p>📧 Email: <a href="mailto:yourmail@gmail.com">yourmail@gmail.com</a></p>
+
+<p>💼 LinkedIn: 
+<a href="https://linkedin.com/in/yourprofile" target="_blank">
+linkedin.com/in/yourprofile
+</a>
+</p>
+
+<p>💻 Naukri: 
+<a href="https://www.naukri.com/mnjuser/profile" target="_blank">
+View My Naukri Profile
+</a>
+</p>
+
+</div>
+
+<form>
+
+<input type="text" placeholder="Your Name">
+
+<input type="email" placeholder="Your Email">
+
+<textarea placeholder="Message"></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 Jaswanth Reddy | DevOps Portfolio</p>
+
+</footer>
+
+</body>
+
+</html>
