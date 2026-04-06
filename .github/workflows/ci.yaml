@@ -58,10 +58,28 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Debug AWS Identity
-        run: aws sts get-caller-identity
+      # ✅ Debug AWS identity
+      - name: Verify AWS Identity
+        run: |
+          echo "===== AWS CALLER ID ====="
+          aws sts get-caller-identity
 
-      # ✅ FIXED: Manual ECR login + correct repo name
+      # ✅ Validate account ID
+      - name: Validate AWS Account ID
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        run: |
+          REAL_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+          echo "Real Account: $REAL_ACCOUNT_ID"
+          echo "Secret Account: $AWS_ACCOUNT_ID"
+
+          if [ "$REAL_ACCOUNT_ID" != "$AWS_ACCOUNT_ID" ]; then
+            echo "❌ ERROR: AWS_ACCOUNT_ID does not match credentials"
+            exit 1
+          fi
+
+      # ✅ Build, login, tag, push
       - name: Build, tag, and push image to ECR
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
@@ -71,6 +89,8 @@ jobs:
           set -e
 
           IMAGE_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/web-app:$IMAGE_TAG
+
+          echo "Using IMAGE_URI=$IMAGE_URI"
 
           echo "Logging into ECR..."
           aws ecr get-login-password --region $AWS_REGION | \
