@@ -68,8 +68,8 @@ jobs:
       run: |
         IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/go-web-app:${{ github.run_id }}
 
-        docker build -t go-web-app:latest .
-        docker tag go-web-app:latest $IMAGE_URI
+        docker build -t web-app:latest .
+        docker tag web-app:latest $IMAGE_URI
         docker push $IMAGE_URI
 
   update-newtag-in-helm-chart:
