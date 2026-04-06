@@ -48,26 +48,29 @@ jobs:
     needs: code-quality
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
+    - name: Debug AWS Identity
+      run: aws sts get-caller-identity
 
-      - name: Build, tag, and push image to ECR
-        run: |
-          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/go-web-app:${{ github.run_id }}
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
 
-          docker build -t go-web-app:latest .
-          docker tag go-web-app:latest $IMAGE_URI
-          docker push $IMAGE_URI
+    - name: Build, tag, and push image to ECR
+      run: |
+        IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/go-web-app:${{ github.run_id }}
+
+        docker build -t go-web-app:latest .
+        docker tag go-web-app:latest $IMAGE_URI
+        docker push $IMAGE_URI
 
   update-newtag-in-helm-chart:
     runs-on: ubuntu-latest
