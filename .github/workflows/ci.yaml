@@ -48,29 +48,43 @@ jobs:
     needs: code-quality
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-south-1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
 
-    - name: Debug AWS Identity
-      run: aws sts get-caller-identity
+      - name: Debug AWS Identity
+        run: aws sts get-caller-identity
 
-    - name: Login to Amazon ECR
-      uses: aws-actions/amazon-ecr-login@v2
+      # ✅ FIXED: Manual ECR login + correct repo name
+      - name: Build, tag, and push image to ECR
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_REGION: ap-south-1
+          IMAGE_TAG: ${{ github.run_id }}
+        run: |
+          set -e
 
-    - name: Build, tag, and push image to ECR
-      run: |
-        IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/go-web-app:${{ github.run_id }}
+          IMAGE_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/web-app:$IMAGE_TAG
 
-        docker build -t web-app:latest .
-        docker tag web-app:latest $IMAGE_URI
-        docker push $IMAGE_URI
+          echo "Logging into ECR..."
+          aws ecr get-login-password --region $AWS_REGION | \
+          docker login --username AWS --password-stdin \
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+          echo "Building image..."
+          docker build -t web-app .
+
+          echo "Tagging image..."
+          docker tag web-app:latest $IMAGE_URI
+
+          echo "Pushing image..."
+          docker push $IMAGE_URI
 
   update-newtag-in-helm-chart:
     runs-on: ubuntu-latest
