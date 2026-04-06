@@ -8,7 +8,7 @@ image:
   repository: 412914223877.dkr.ecr.ap-south-1.amazonaws.com/web-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1"
+  tag: "24043441949"
 
 ingress:
   enabled: false
