@@ -125,6 +125,6 @@ jobs:
           git config --global user.email "jaswanthgorantla02@gmail.com"
           git config --global user.name "jaswanth"
 
-          git add helm/go-web-app-chart/values.yaml
+          git add helm/web-app-chart/values.yaml
           git diff --cached --quiet || git commit -m "Update tag to ${{ github.run_id }}"
           git push
